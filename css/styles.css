@@ -1,0 +1,47 @@
+/* start base */
+*{margin:0;padding:0;}
+body{color:#666666;font: 12px/150% Arial,Verdana,"宋体";background:#FFF;}
+h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}
+img{border:none}
+ul,li{list-style:none}
+input,select,textarea{outline:none}
+textarea{resize:none}
+a{text-decoration:none;color:#666666}
+a:hover{color:#e4393c;text-decoration:underline}
+
+/*start clear*/
+.clearfix:after{content:"";display:block;clear:both;}
+.clearfix{zoom:1;}
+
+/* start  currency */
+.w{width:100%}
+.Comw{width:990px;margin:0 auto;}
+.fl{float:left;display:inline;}
+.fr{float:right;display:inline;}
+.pr{position:relative;}
+.pa{position:absolute;}
+.bd{border:1px solid #000;}
+
+/*start exterior*/
+.red{color:#ff0000;}
+.h20{height:20px;}
+
+/* start icon */
+
+.pr b, .pr s{position:absolute;overflow:hidden;}
+
+/*start  header*/
+#shortcut{width:100%;border-bottom:1px solid #eeeeee;line-height:30px;}
+#shortcut,.shortcut .Comw{background:#f7f7f7;height:30px}
+#shortcut .Comw .fl{padding-left:25px;}
+#shortcut .Comw li{float:left;padding:0 11px 0 12px;}
+#shortcut .Comw li b{border-left:1px solid #dddddd;height:12px;left:0;top:9px;width:0;overflow:hidden;}
+
+.header{height:60px; padding:15px 0;}
+.logo{width:330px;}
+.search{width:330px; padding:4px 86px 0 0; letter-spacing:-4px;}
+.search .form{height:30px;border:3px solid #E4393C;width:304px;}
+.search input{border:none;}
+.search .text{height:20px;line-height:20px;width:216px;padding:5px;color:#999;font-size:14px;}
+.search .text:focus{background:#fcfcfc; box-shadow:2px 2px 3px #d2d2d2 inset;  }
+.search .submit{width:78px;height:30px; line-height:30px; font-size:14px;font-weight:700; color:#fff; background:#E4393C; cursor:pointer;}
