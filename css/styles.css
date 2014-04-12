@@ -39,7 +39,7 @@ a:hover{color:#e4393c;text-decoration:underline}
 
 .header{height:60px; padding:15px 0;}
 .logo{width:330px;}
-.search{width:330px; padding:4px 86px 0 0; letter-spacing:-4px;}
+.search{width:330px; padding:4px 86px 0 0; letter-spacing:-3px;}
 .search .form{height:30px;border:3px solid #E4393C;width:304px;}
 .search input{border:none;}
 .search .text{height:20px;line-height:20px;width:216px;padding:5px;color:#999;font-size:14px;}
