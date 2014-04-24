@@ -25,7 +25,7 @@ a:hover{color:#e4393c;text-decoration:underline}
 .pr{position:relative;}
 .pa{position:absolute;}
 .bd{border:1px solid #000;}
-
+.center{margin:100px auto 0 ; border:1px solid #ccc; text-align:center; width:200px; height:120px;}
 /*start exterior*/
 .red{color:#ff0000;}
 .h20{height:20px;}

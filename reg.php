@@ -23,7 +23,7 @@
     </div>
   <div class="header Comw ">
       <div class="logo fl reg">
-        <a href="#"><img src="./images/relogo.png" alt="马尚购"></a>
+        <a href="./index.php"><img src="./images/relogo.png" alt="马尚购"></a>
       </div>
       <div class="regWe fl">
         <img src="./images/regist-word.png" alt="欢迎注册">
@@ -34,7 +34,7 @@
         <div class="regmainhCon fl">
           <p class="regbox">
             <span class="regtext"><b>*</b>账户名:</span>
-            <input class="text"  type="text" id="name" name="name" value="请输入用户名"  onblur="if(this.value=='') {this.value='请输入用户名';this.style.color='#999999'}" onfocus="if(this.value=='请输入用户名') this.value='';this.style.color='#333'" >
+            <input class="text"  type="text" id="name" name="name" value="" >
             <label for="username"></label>
           </p>
           <p class="regbox">
@@ -66,7 +66,7 @@
       <div class="fr">
         <p>
           我已经注册,现在就
-          <a href="">登录</a>
+          <a href="./login.php">登录</a>
         </p>
       </div>
   </div>

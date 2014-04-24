@@ -17,7 +17,7 @@
             <?php if (empty($_SESSION['home'])) :?>
                 <li>您好，欢迎来到马尚购!<a href="./login.php">[登陆]</a><a href="./reg.php">[免费注册]</a></li>
             <?php else: ?>
-                <li>您好,<?php echo $_SESSION['home']['name'] ?>，欢迎来到马尚购!<a href="./reg.php">[退出]</a></li>
+                <li>您好,<?php echo $_SESSION['home']['name'] ?>，欢迎来到马尚购!<a href="./action?list=quit">[退出]</a></li>
             <?php endif; ?>
           <li class="pr"><b></b><a href="">我的订单</a></li>
           <li class="pr"><b></b><a href="">手机版</a></li>

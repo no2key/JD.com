@@ -14,3 +14,28 @@ CREATE TABLE IF NOT EXISTS user(
 	log_time INT,
 	address TEXT
 )ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+-------------
+--2014年4月22日user表中插入状态,权限
+--statue/ 0:禁用   1:启用
+--admin/ 0:超级管理员 2:管理员  3:会员
+
+ALTER TABLE user ADD statue TINYINT NOT NULL DEFAULT 1;
+ALTER TABLE user ADD admin TINYINT NOT NULL DEFAULT 3;
+
+----2014年4月23日user表中插入头像,注册ip,登录ip
+
+ALTER TABLE user ADD icon VARCHAR(255);
+ALTER TABLE user ADD reg_ip VARCHAR(255) NOT NULL DEFAULT '';
+ALTER TABLE user ADD last_ip VARCHAR(255) NOT NULL DEFAULT '';
+
+
+-----2014年cate
+
+CREATE TABLE IF NOT EXISTS cate(
+	id INT  UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	name VARCHAR(255) NOT NULL DEFAULT '',
+	pid	INT NOT NULL,
+	path VARCHAR(255) NOT NULL
+)ENGINE=MyISAM DEFAULT CHARSET=utf8;

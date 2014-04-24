@@ -1,0 +1,119 @@
+*{margin:0;padding:0;}
+body{color:#666666;font: 12px/150% Arial,Verdana,"宋体";background:#FFF;}
+h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}
+img{border:none}
+li{list-style:none}
+input,select,textarea{outline:none}
+textarea{resize:none}
+a{text-decoration:none;color:#666666}
+a:hover{color:#e4393c;text-decoration:underline}
+em, cite, th {
+    font-style: normal;
+    font-weight: normal;
+}
+
+/*start clear*/
+.clearfix:after{content:"";display:block;clear:both;}
+.clearfix{zoom:1;}
+
+/*是否*/
+.green{color:#0f0}
+.red{color:#f00}
+.center{position:absolute;margin-left:-200px;margin-top:-100px; border:1px solid #ccc; width:200px; height:120px;}
+
+/*左侧菜单*/
+#main-div {
+    background:#FFFFFF;
+    border: 1px solid #345C65;
+    margin: 5px;
+    padding: 5px;
+}
+.menu_list li {
+    cursor: pointer;
+    line-height: 16px;
+    padding-left: 16px;
+}
+.collapse {
+    background: url("../images/menu_plus.gif") no-repeat 0 3px ;
+    font-weight: bold;
+}
+.explode {
+    background: url("../images/menu_minus.gif") no-repeat 0 3px ;
+    font-weight: bold;
+}
+.menu-item {
+    background: url("../images/menu_arrow.gif") no-repeat 0 3px ;
+    font-weight: normal;
+}
+
+.none{display:none;}
+
+/**/
+.main{
+	background: #DDEEF2;
+    padding: 10px;
+}
+h1 {
+    background:#F4FAFB;
+    border: 1px solid #BBDDE5;
+    color: #9CACAF;
+    font-size: 14px;
+    margin: 0 0 10px;
+    overflow: hidden;
+    padding: 7px 10px;
+}
+.form-div{
+    background: #F4FAFB;
+    border: 1px solid #BBDDE5;
+    color: #808080;
+    margin: 0 0 10px;
+    padding: 5px;
+}
+
+.main-div {
+    background: #F4FAFB;
+    border: 1px solid #BBDDE5;
+    margin-bottom: 10px;
+    padding: 2px;
+}
+td.label {
+    font-weight: bold;
+    padding: 5px 1em;
+    text-align: right;
+    vertical-align: top;
+    width: 30%;
+}
+.admin_userlist{width:100%;text-align:center;}
+.list-div th {
+    background: url("../images/th_bg.gif") repeat-x #BBDDE5;
+    line-height: 24px;
+    white-space: nowrap;
+}
+.list-div td {
+    background:#FFFFFF;
+    line-height: 22px;
+}
+.prev-span{
+    float:left;
+}
+.action-span {
+    float: right;
+    padding-left: 10px;
+}
+.prev-span a,.action-span a {
+    border-color: #278296;
+    border-style: solid;
+    border-width: 1px 2px 2px 1px;
+    color: #666666;
+    display: block;
+    font-size: 12px;
+    font-weight: 400;
+    padding: 2px 5px 2px 23px;
+    text-decoration: none;
+}
+.action-span a {
+    background: url("../images/icon_add.gif") no-repeat 3px center #DDEEF2;
+}
+.prev-span a{
+    background: url("../images/icon_output.gif") no-repeat 3px center #DDEEF2;
+}
