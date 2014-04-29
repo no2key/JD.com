@@ -1,5 +1,60 @@
-<?php include 'header.php' ?>
-<div class="goods Comw"> 
+			<div class="content nan">
+	  			<div class="contentNav pr">
+	  				<span class="pa"><a href="">男装</a></span>
+	  				<div class="fr"><a class="content_btn" href=""></a></div>
+	  			</div>
+	  			<div class="h10"></div>
+	  			<div class="submenu clearfix">
+	  				<ul>
+	  					<li><a href=""><img src="./images/woman7_140410.jpg" alt=""></a></li>
+	  					<li><a href=""><img src="./images/woman7_140410.jpg" alt=""></a></li>
+	  					<li><a href=""><img src="./images/woman7_140410.jpg" alt=""></a></li>
+	  					<li><a href=""><img src="./images/woman7_140410.jpg" alt=""></a></li>
+	  					<li class="last"><a href=""><img src="./images/woman7_140410.jpg" alt=""></a></li>
+	  				</ul>
+	  			</div>
+	  		</div>
+
+	  		<div class="content xie">
+	  			<div class="contentNav pr">
+	  				<span class="pa"><a href="">鞋</a></span>
+	  				<div class="fr"><a class="content_btn" href=""></a></div>
+	  			</div>
+	  			<div class="h10"></div>
+	  			<div class="submenu clearfix">
+	  				<ul>
+	  					<li>
+	  						<a href=""><img src="./images/shoes3_140408.jpg" alt=""></a>
+	  						<a href=""><img src="./images/shoes3_140408.jpg" alt=""></a>
+	  					</li>
+	  					<li>
+	  						<a href=""><img src="./images/shoes3_140408.jpg" alt=""></a>
+	  						<a href=""><img src="./images/shoes3_140408.jpg" alt=""></a>
+	  					</li>
+	  					<li>
+	  						<a href=""><img src="./images/shoes3_140408.jpg" alt=""></a>
+	  						<a href=""><img src="./images/shoes3_140408.jpg" alt=""></a>
+	  					</li>
+	  					<li>
+	  						<a href=""><img src="./images/shoes3_140408.jpg" alt=""></a>
+	  						<a href=""><img src="./images/shoes3_140408.jpg" alt=""></a>
+	  					</li>
+	  					<li class="last">
+	  						<a href=""><img src="./images/shoes3_140408.jpg" alt=""></a>
+	  						<a href=""><img src="./images/shoes3_140408.jpg" alt=""></a>
+	  					</li>
+	  				</ul>
+	  			</div>
+	  		</div>
+
+
+
+
+
+详情页
+
+
+	  		<div class="goods Comw"> 
 	<div class="GbreadCrumb">
 		<a href="">首页</a>
 		<span>&gt;</span>
@@ -12,7 +67,7 @@
 	<div class="h15"></div>
 	<div class="goodstitle fr">
 		<div class="goodsNum">商品编号:0180258</div>
-		<h2>经典连帽头卫衣 墨绿色</h2>
+		<h2><?php echo $good_list['gn'] ?></h2>
 	</div>
 	<div class="h15"></div>
 	<div class="goodsinfo fl">
@@ -91,7 +146,3 @@
 </div>
 
 <div class="h10"></div>
-<script>
-	document.title="经典连帽头卫衣-墨绿色-男款-卫衣-马尚购";
-</script>
-<?php include 'footer.php' ?>

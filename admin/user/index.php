@@ -1,112 +1,37 @@
 <?php
 	include '../common.php';
 
-	//处理搜索条件
-	//1.可以按用户名搜索
-	//2.可以按性别搜索
-	//3.同时按用户名及性别进行搜索
 	
-	//处理按用户名搜索
+	$where=array();
 	if(!empty($_GET['name'])){
-		$name = $_GET['name'];
-		$arr[] = "name like '%$name%'";
+		$name = stripslashes($_GET['name']);
+		$arr[]="name=$name";
+		$where[]= "name like '%$name%'";
 	}
-
-	//处理按性别搜索
-	if($_GET['sex'] != ''){
-		$sex = $_GET['sex'];
-		$arr[] = "sex='$sex'";
+	if($_GET['sex'] !=''){
+		$sex = stripslashes($_GET['sex']);
+		$arr[]="sex=$sex";
+		$where[]= "sex = $sex";
 	}
-	
-	//4.在url中传递这个where条件
-	echo "<pre>";
-//		print_r($arr);
-	echo "</pre>";
-
-	//如果$arr中有数组元素，就说明用户传了搜索条件
-	if(count($arr)>0){
-		$where = 'where '.implode('and',$arr);
+	if (count($arr)>0){
+		$search= implode('&',$arr);
+		$term='where '.implode('and',$where);
 	}
+		
 
-//	echo $where;
-
-	//如果我们分页的那些点击链接没有传递where条件过来
-	//别忘了用stripslashes()这个函数把浏览器自动加上的转义斜线去掉
-	$where = empty($_GET['where'])?$where:stripslashes($_GET['where']);
-
-	if(!empty($where)){		//如果已经有where条件了，那么就把这个where条件拼接成url中传参的样子
-		//&where=name like '%徐%'
-		$search = '&where='.$where;
-	}
-
-
-		$where = empty($_GET['where'])?$where:stripcslashes($_GET['where']);
-
-		if (!empty($where)) {
-			$search = '&where='.$where;
-		}
- // echo $search;
-
-		$sql="select count(id) num from user $where";
+		$sql="select count(id) num from user $term";
 		$result=mysql_query($sql);
 		$row=mysql_fetch_assoc($result);
 		$total=$row['num'];    //总条数
-		$num=1;			//每页条数
-
+		$num=5;			//每页条数
 		$amout=ceil($total/$num);  //可分页数
-
-		/*$page =empty($_GET['p'])?1:(int)$_GET['p']; //当前页
-
-		if ($page<1) {
-			$page =1 ;
-		}
-		if ($page > $amout) {
-			$page = $amout;
-		}*/
-
 		$page=$_GET['p'];
 		$page=max($page,1);
 		$page=min($amout,$page);
-
-
 		$offest=($page-1)*$num;  //初始量
 
-		$sql="select id,name,icon,sex,statue,admin,reg_time from user $where limit $offest,$num";
-		$result=mysql_query($sql);
-		if($result && mysql_num_rows($result)>0){
-			$user_list=array();
-			while ($row=mysql_fetch_assoc($result)) {
-				$user_list[]=$row;
-			}
-		}
-		$rows=mysql_affected_rows();
-
-		$prev=$page-1;
-		$next=$page+1;
-
-		$start=max(1,$page-3);
-		$end=min($amout,$page+3);
-		for ($i=$start; $i <= $end; $i++) { 
-			if ($i == $page) {
-				$num_links .= '<a style="color:red;font-size:20px;" href="index.php?p='.$i.$search.'">['.$i.']</a>';
-				continue;
-			}
-				$num_links .='<a href="index.php?p='.$i.$search.'">['.$i.']</a>';
-		}
-
-
-
-		$str= <<<aaa
-			总计 $total 个记录分为 $amout 页,当前第 $page 页,每页 $num 条记录,
-			<a href="index.php?p=1$search">首页</a>
-			<a href="index.php?p=$prev$search">上一页</a>
-			$num_links
-			<a href="index.php?p=$next$search">下一页</a>
-			<a href="index.php?p=$amout$search">尾页</a>
-aaa;
-
-		mysql_free_result($result);
-		mysql_close($link);
+		$sql="select id,name,icon,sex,statue,admin,reg_time from user $term limit $offest,$num";
+		$user_list=query($sql);
  ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -116,6 +41,13 @@ aaa;
 	<link rel="stylesheet" href="../../css/admin.css"/>
 </head>
 <body class="main">
+	<h1>
+		<span class="action-span1">
+			<a href="">管理中心</a>
+		</span>
+		<span id="search_id" class="action-span1"> - 会员列表 </span>
+		<span class="action-span"><a href="<?php echo URL ?>add.php">添加管理员</a></span>
+	</h1>
 	<div id="listDiv" class="list-div">
 		<div class="form-div">
 			<form action="index.php" method="get">
@@ -131,7 +63,7 @@ aaa;
 		<tr>
 			<th>编号</th>
 			<th>头像</th>
-			<th>会员名称</th>
+			<th>用户名</th>
 			<th>性别</th>
 			<th>所属权限</th>
 			<th>是否验证</th>
@@ -142,7 +74,14 @@ aaa;
 		<?php foreach($user_list as $val): ?>
 		<tr>
 			<td><?php echo $val['id'] ?></td>
-			<td><img src="../../<?php echo $val['icon'] ?>" alt=""></td>
+				<?php 
+						$path='';
+						$path .='http://'.$_SERVER['HTTP_HOST'].'/JD.com/upload/';
+						$path .=substr($val['icon'],0,4).'/';
+						$path .=substr($val['icon'],4,2).'/';
+						$pathname=$path.'50_'.$val['icon'];
+			 		?>
+			<td><img src="<?php echo $pathname ?>" alt=""></td>
 			<td><?php echo $val['name'] ?></td>
 			<td><?php echo $val['sex']==1?'男':'女' ?></td>
 			<td><?php $prower=$val['admin']; if ($prower == 0) {echo '超级管理员';}elseif($prower == 2){ echo '管理员';}else{echo '普通会员';}
@@ -160,6 +99,7 @@ aaa;
 		<?php endif; ?>
 		</table>
 	</div>
-		<div><?php echo  $str ; ?></div>
+	<!--page($num,$total,$page,$link,$search)-->
+		<div><?php echo  page($num,$total,$page,"index?",$search) ?></div>
 </body>
 </html>

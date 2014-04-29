@@ -1,4 +1,9 @@
-<?php include 'common.php' ?>
+<?php 
+    include 'common.php';
+    $sql="select name from cate where nav=1 limit 6";
+    $nav_list=query($sql);
+
+?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -144,12 +149,12 @@
             <!--<div class="mainlistmore"></div>-->
         </div>
             <ul class="mainLeftNav fl">
+
                 <li id="nav-ww" class="active"><a href="">首页</a></li>
-                <li id="nav-shirt"><a href="">T恤</a></li>
-                <li id="nav-pol"><a href="">POLO</a></li>
-                <li id="nav-bx"><a href="">帆布鞋</a></li>
-                <li id="nav-fy"><a href="">风衣</a></li>
-                <li id="nav-wy"><a href="">卫衣</a></li>
-                <li id="nav-yrf"><a href="">羽绒服</a></li>
+                <?php if (!empty($nav_list)): ?>
+                <?php foreach($nav_list as $val): ?>
+                <li ><a href=""><?php echo $val['name'] ?></a></li>
+                <?php endforeach; ?>
+                <?php endif; ?>
             </ul>
     </div>

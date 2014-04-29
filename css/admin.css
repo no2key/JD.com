@@ -62,6 +62,12 @@ h1 {
     overflow: hidden;
     padding: 7px 10px;
 }
+h1 a{color: #333;text-decoration:none;}
+h1 a:hover{text-decoration:none;}
+h1 .action-span1 {
+    float: left;
+    margin-top: 2px;
+}
 .form-div{
     background: #F4FAFB;
     border: 1px solid #BBDDE5;
@@ -76,6 +82,10 @@ h1 {
     margin-bottom: 10px;
     padding: 2px;
 }
+.admin_userlist{width:100%;text-align:center;}
+.add td{
+    text-align:left;
+}
 td.label {
     font-weight: bold;
     padding: 5px 1em;
@@ -83,7 +93,8 @@ td.label {
     vertical-align: top;
     width: 30%;
 }
-.admin_userlist{width:100%;text-align:center;}
+
+
 .list-div th {
     background: url("../images/th_bg.gif") repeat-x #BBDDE5;
     line-height: 24px;

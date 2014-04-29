@@ -1,5 +1,13 @@
 <?php
-function upload($name, $dir='./upload', $type=array('image','text')){
+
+/**
+	* 文件上传函数
+	* @param string $name 文本域中的name
+	* @param string $dir 指定文件保存目录
+	* return 文件名（不是文件路径，是文件名）
+	**/
+
+function upload($name, $dir, $type=array('image')){
 		//echo "<pre>";
 		//	print_r($_FILES);
 		//echo "</pre>";
@@ -80,14 +88,16 @@ function upload($name, $dir='./upload', $type=array('image','text')){
 
 		//4.2移动文件
 		if(move_uploaded_file($_FILES[$name]['tmp_name'], $file_path)){
-			return $filename;	//返回的这个文件名，未来我们要把它写入数据库
+			return $file_path;	//返回的这个文件名，未来我们要把它写入数据库
 		}else{
 			return false;
 		}
 	}
 
-
-
+	/*
+	 *	加水印
+	 */
+	
 function watermark($back, $water, $alpha=100){
 		$back_img = createImg($back);
 
@@ -190,7 +200,7 @@ function watermark($back, $water, $alpha=100){
 
 
 	/*
-	 *	缩放函数
+	 *	等比缩放函数
 	 *	@$img_path String $img_path 操作的图片路径
 	 *	@param Int $width 缩放后的图片宽度
 	 *	@param Int $height 缩放后的图片高度
@@ -199,12 +209,7 @@ function watermark($back, $water, $alpha=100){
 
 	//zoom('./mm.png', './save/20140408',300,300);
 
-	function zoom($img_path, $save_path='./', $width=200, $height=200){
-
-		//判断用户传的保存目录是否存在
-		if(!file_exists($save_path)){
-			mkdir($save_path,0777,true);
-		}
+	function zoom($img_path, $save_path,$file_name, $width=200, $height=200){
 
 		$save_path = rtrim($save_path,'/').'/';
 		
@@ -232,12 +237,6 @@ function watermark($back, $water, $alpha=100){
 		//2.图片名要处理一下吧？产生一个新的图片名
 		//判断一下如果类型为jpeg - jpg
 
-		if($info['suffix'] == 'jpeg'){
-			$info['suffix'] = 'jpg';
-		}
-
-		$file_name = time() .'.'. $info['suffix'];
-
 		//3.保存图片
 		$result = $func($dest_img,$save_path.$file_name);
 
@@ -245,18 +244,9 @@ function watermark($back, $water, $alpha=100){
 		imagedestroy($info['resource']);
 		imagedestroy($dest_img);
 
-		/*if($result){
-			return true;
-		}
-		
-		return false;
-		 */
-
-		return $result;
+		return $result;	
 		
 	}
-
-
 
 
 
@@ -287,7 +277,7 @@ function watermark($back, $water, $alpha=100){
 		return $img;
 	}
 
-	//数据库查询,
+		//数据库查询,
 	function  query($sql){
 		$result=mysql_query($sql);
 		if($result && mysql_num_rows($result)>0){
@@ -298,3 +288,108 @@ function watermark($back, $water, $alpha=100){
 		}
 		return $list;
 	}
+
+	/**
+	 * 查询数据库中数据是否存在
+	 * @param  string $name  要查询的值
+	 * @param  string $table 要查询的表
+	 * @param  string $term  要判断的条件
+	 * @param  string $value 条件的值
+	 * @return Boolean        有值返回true没值返回false
+	 */
+	function  exist($name='id',$table,$term,$value){
+		$sql="select $name from $table where $term = '$value' ";
+		$result=mysql_query($sql);
+		if($result && mysql_num_rows($result)>0){
+			return  true;
+		}else{
+			return false;
+		}
+		 
+	}
+
+	/**
+	 * 数据库插入值
+	 * @param  string $sql 语句
+	 * @return bool      成功返回true 失败false
+	 */
+	function  insert($sql){
+		$result=mysql_query($sql);
+		if($result && mysql_insert_id($GLOBALS["link"]) > 0){
+			return  true;
+		}else{
+			return false;
+		}
+	}
+
+		/**
+	 * 数据库修改值
+	 * @param  string $sql 语句
+	 * @return bool      成功返回true 失败false
+	 */
+	function  update($sql){
+		$result=mysql_query($sql);
+		if($result && mysql_affected_rows()){
+			return  true;
+		}else{
+			return false;
+		}
+		 
+	}
+
+	//$_POST,$_GET
+
+	function post($name){
+		$name=$_POST[$name];
+		return $name;
+	}
+
+	function get($name){
+		$name =$_GET[$name];
+		return $name;
+	}
+	/**
+	 * 分页
+	 * @param  [type] $num    每页显示条数
+	 * @param  int $total  总条数
+	 * @param  int $page   当前选中页
+	 * @param  string $link   分页连接
+	 * @param  string $search 连接条件
+	 * @return [type]         [description]
+	 */
+	function page($num,$total,$page,$link,$search){
+
+		$amout=ceil($total/$num);  //可分页数
+		$page=max($page,1);
+		$page=min($amout,$page);
+
+		$prev=$page-1;
+		$next=$page+1;
+
+		$str= "总计 $total 个记录分为 $amout 页,当前第 $page 页,每页 $num 条记录";
+		if($page<=1){
+			$str.="<span class=disabled>首页</span>";
+   		$str.="<span class=disabled>上一页</span>";
+   	}else{
+   		$str.= "<a href='$link".'p=1&'."$search'>首页</a>";
+			$str.= "<a href='$link".'p='."$prev&$search'>上一页</a>";
+   	}
+   	$start=max(1,$page-3);
+		$end=min($amout,$page+3);
+		for ($i=$start; $i <= $end; $i++) { 
+			if ($i == $page) {
+				$str.= '<a style="color:red;font-size:20px;" href="'.$link.'p='.$i.'&'.$search.'">['.$i.']</a>';
+				continue;
+			}
+				$str.='<a style="font-size:16px;" href="'.$link.'p='.$i.'&'.$search.'">['.$i.']</a>';
+		}
+		if($page>=$amout){
+   	$str.="<span class=disabled>下一页</span>";
+   	$str.="<span class=disabled>尾页</span>";
+   	}else{
+   		$str.="<a href='$link".'p='."$next&$search'>下一页</a>";
+   		$str.="<a href='$link".'p='."$amout&$search'>尾页</a>";
+   	}
+   	return $str;
+	}
+

@@ -1,5 +1,6 @@
-<?php include '../common.php' ?>
-
+<?php 
+	include '../common.php'; 
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

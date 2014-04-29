@@ -27,8 +27,8 @@ aaa;
 aaa;
 			echo $str;
 				}?>
-					<li class="menu-item"><a href="">商品列表</a></li>
-					<li class="menu-item"><a href="">添加商品</a></li>
+					<li class="menu-item"><a href="<?php echo URL;?>goods/index.php" target="main">商品列表</a></li>
+					<li class="menu-item"><a href="<?php echo URL;?>goods/add.php" target="main">添加商品</a></li>
 					<li class="menu-item"><a href="">商品图片处理</a></li>
 					<li class="menu-item"><a href=""></a></li>
 				</ul>
