@@ -1,11 +1,18 @@
 <?php 
 	include 'header.php';
 	$id=get('id');
-	$sql="select g.id,g.name gn,g.price,g.num,g.describe,gm.name gmn from goods g,goods_img gm where g.id=gm.goods_id and g.id='$id'";
+	$ip=$_SERVER['REMOTE_ADDR'];
+	if ($_SESSION[$ip]['id']!=$id) {
+		$sql="update goods set visited=visited+1 where id='$id'";
+		if(update($sql)){
+			$_SESSION[$ip]['id']=$id;
+		}
+	}	$sql="select g.id,g.name gn,g.price,g.num,g.visited,g.describe,gm.name gmn from goods g,goods_img gm where g.id=gm.goods_id and g.id='$id'";
 	$good_list=query($sql);
 	$good_list=$good_list[0];
 	$sql="select name from goods_img where goods_id='$id'";
 	$img_list=query($sql);
+
 ?>
 
 <div class="detail Comw clearfix"> 
@@ -23,34 +30,37 @@
 					<span class="sort">销 量</span>共售出<span id="txtHint"> 283</span>件
 				</li>
 		</ul>
-		<div class="sku_info">
-			<div class="skin">
-				<dl class="amount clearfix">
-					<dt>数 量</dt>
-						<dd>
-							<div class="numBox">
-								<span class="minus" onclick="minus()"></span>
-								<input id="myinput" onchange="showCustomer()" class="nums" type="text" value="1" title="请输入购买数量">
-								<span class="plus" onclick="add()"></span>
-							</div>
-							<span class="stock">(库存<span><?php echo $good_list['num'] ?></span>件)</span>
-						</dd>
-				</dl>
-			</div>
-			<div class="btn_box">
-				
-				<div class="same_btn">
-					<a class="add_cart" title="加入购物车">
-						<em class="cartico"> </em>
-						加入购物车
-					</a>
-					<a class="buy_btn" title="立即购买">
-						<em class="rmbico"> </em>
-						立即购买
-					</a>
+		<form action="cart_action.php?a=add" method="post">
+			<input type="hidden" name="id" value="<?php echo $id ?>">
+			<input type="hidden" name="a" value="add">
+			<div class="sku_info">
+				<div class="skin">
+					<dl class="amount clearfix">
+						<dt>数 量</dt>
+							<dd>
+								<div class="numBox">
+									<span class="minus" onclick="minus()"></span>
+									<input id="myinput" name="buy_num" class="nums" type="text" value="1" title="请输入购买数量">
+									<span class="plus" onclick="add()"></span>
+								</div>
+								<span class="stock">(库存<span id="num"><?php echo $good_list['num'] ?></span>件)</span>
+							</dd>
+					</dl>
+				</div>
+				<div class="btn_box">
+					
+					<div class="same_btn">
+							<input class="add_cart" type="submit" value="加入购物车">
+							<input class="buy_btn" type="submit" value="立即购买">
+					</div>
 				</div>
 			</div>
-		</div>
+		</form>
+		<span class="like_btn" like_twitter_id="2772906692" isshowlike="1" liked="0">
+			<em class="love_ico"> </em>
+			浏览次数
+		</span>
+		<span class="red_f"><?php echo $good_list['visited'] ?></span>
 	</div>
 	<div class="picture">
 		<div class="big_pic_box">
@@ -91,7 +101,8 @@
 	function show(obj){
 		//alert(obj.src);
 		var src = obj.src.substring(obj.src.lastIndexOf('_')+1);
-		document.getElementById('lookimg').src="http://localhost/JD.com/upload/2014/04/"+src
+		var http = obj.src.substring(0,obj.src.indexOf('_')-2);
+		document.getElementById('lookimg').src=http+src;
 		document.getElementById('lookimg').className="active";
 	}
 
@@ -100,8 +111,12 @@
 
 	//增加购买数量
 	function add(){
+		var str=document.getElementById('num').innerHTML;
+		str=parseInt(str);
 		inp.value = parseInt(inp.value)+1;
-
+		if(inp.value > str){
+			inp.value=str;
+		}
 	}
 
 	//减少购买数量

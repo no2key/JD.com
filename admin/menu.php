@@ -68,8 +68,8 @@ aaa;
 aaa;
 			echo $str;
 				}?>
-					<li class="menu-item">订单管理</li>
-					<li class="menu-item"></li>
+					<li class="menu-item"><a href="<?php echo URL ?>order/index.php" target="main">订单列表</a></li>
+					<li class="menu-item"><a href="<?php echo URL ?>order/index.php" target="main">积分列表</a></li>
 				</ul>
 			</li>
 			<?php if ($id==3){

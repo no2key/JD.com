@@ -2,7 +2,13 @@
     include 'common.php';
     $sql="select name from cate where nav=1 limit 6";
     $nav_list=query($sql);
-
+    $num=0;
+    if (isset($_SESSION['cate'])) {
+        foreach ($_SESSION['cate'] as  $key => $value) {
+        $num += (int)$value['num'];
+    }
+    }
+ 
 ?>
 <!DOCTYPE html>
 <html>
@@ -20,7 +26,7 @@
         </ul>
         <ul class="fr">
             <?php if (empty($_SESSION['home'])) :?>
-                <li>您好，欢迎来到马尚购!<a href="./login.php">[登陆]</a><a href="./reg.php">[免费注册]</a></li>
+                <li>您好，欢迎来到马尚购!<a href="./login.php?target=<?php echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME'].'&'.$_SERVER['QUERY_STRING']?>">[登陆]</a><a href="./reg.php">[免费注册]</a></li>
             <?php else: ?>
                 <li>您好,<?php echo $_SESSION['home']['name'] ?>，欢迎来到马尚购!<a href="./action?list=quit">[退出]</a></li>
             <?php endif; ?>
@@ -47,13 +53,13 @@
       </div>
       <div class="mymsg">
         <dl class="">
-            <dt><a href="">我的尚购</a><b></b></dt>
+            <dt><a href="center.php">我的尚购</a><b></b></dt>
             <dd></dd>
             <dd></dd>
         </dl>
       </div>
       <div class="fr">
-        <div class="set">购物车(<span >0</span>)件<b></b></div>
+        <div class="set"><a href="cate_show.php">购物车(<span ><?php echo $num; ?></span>)件<b></b></a></div>
         <div class="shoplist"></div>
       </div>
     </div>

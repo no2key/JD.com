@@ -357,7 +357,7 @@ function watermark($back, $water, $alpha=100){
 	 * @param  string $search 连接条件
 	 * @return [type]         [description]
 	 */
-	function page($num,$total,$page,$link,$search){
+	function page($num,$total,$page,$link,$search=''){
 
 		$amout=ceil($total/$num);  //可分页数
 		$page=max($page,1);
@@ -371,24 +371,24 @@ function watermark($back, $water, $alpha=100){
 			$str.="<span class=disabled>首页</span>";
    		$str.="<span class=disabled>上一页</span>";
    	}else{
-   		$str.= "<a href='$link".'p=1&'."$search'>首页</a>";
-			$str.= "<a href='$link".'p='."$prev&$search'>上一页</a>";
+   		$str.= "<a href='$link".'p=1'."$search'>首页</a>";
+			$str.= "<a href='$link".'p='."$prev$search'>上一页</a>";
    	}
    	$start=max(1,$page-3);
 		$end=min($amout,$page+3);
 		for ($i=$start; $i <= $end; $i++) { 
 			if ($i == $page) {
-				$str.= '<a style="color:red;font-size:20px;" href="'.$link.'p='.$i.'&'.$search.'">['.$i.']</a>';
+				$str.= '<a style="color:red;font-size:20px;" href="'.$link.'p='.$i.$search.'">['.$i.']</a>';
 				continue;
 			}
-				$str.='<a style="font-size:16px;" href="'.$link.'p='.$i.'&'.$search.'">['.$i.']</a>';
+				$str.='<a style="font-size:16px;" href="'.$link.'p='.$i.$search.'">['.$i.']</a>';
 		}
 		if($page>=$amout){
    	$str.="<span class=disabled>下一页</span>";
    	$str.="<span class=disabled>尾页</span>";
    	}else{
-   		$str.="<a href='$link".'p='."$next&$search'>下一页</a>";
-   		$str.="<a href='$link".'p='."$amout&$search'>尾页</a>";
+   		$str.="<a href='$link".'p='."$next$search'>下一页</a>";
+   		$str.="<a href='$link".'p='."$amout$search'>尾页</a>";
    	}
    	return $str;
 	}

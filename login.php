@@ -1,3 +1,12 @@
+<?php 
+  include 'common.php';
+
+
+  $target=$_GET['target'];
+
+  $pathfilm=ltrim(strstr($_SERVER['QUERY_STRING'],'&'),'&');
+
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,6 +44,8 @@
         <img src="" alt="">
       </div>
         <form action="action.php?list=log" method="post">
+          <input type="hidden" name="target" value="<?php echo $target ?>">
+          <input type="hidden" name="pathfilm" value="<?php echo $pathfilm ?>">
           <div class="logmainhCon fr">
             <div class="logbox">
               <div class="logtext">账户名:</div>

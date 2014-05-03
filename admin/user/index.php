@@ -4,17 +4,17 @@
 	
 	$where=array();
 	if(!empty($_GET['name'])){
-		$name = stripslashes($_GET['name']);
+		$name = stripslashes(trim($_GET['name']));
 		$arr[]="name=$name";
 		$where[]= "name like '%$name%'";
 	}
 	if($_GET['sex'] !=''){
 		$sex = stripslashes($_GET['sex']);
 		$arr[]="sex=$sex";
-		$where[]= "sex = $sex";
+		$where[]= " sex = $sex";
 	}
 	if (count($arr)>0){
-		$search= implode('&',$arr);
+		$search= '&'.implode('&',$arr);
 		$term='where '.implode('and',$where);
 	}
 		
@@ -100,6 +100,6 @@
 		</table>
 	</div>
 	<!--page($num,$total,$page,$link,$search)-->
-		<div><?php echo  page($num,$total,$page,"index?",$search) ?></div>
+		<div><?php echo  page($num,$total,$page,"index.php?",$search) ?></div>
 </body>
 </html>

@@ -55,6 +55,8 @@
 			}
 		break;
 		case 'log';
+			$target=post('target');
+			$pathfilm=post('pathfilm');
 			$name=$_POST['name'];
 			$name=htmlspecialchars(trim($name));
 			$pwd=md5($_POST['password']);
@@ -72,7 +74,7 @@
 				$result=mysql_query($sql);
 				$_SESSION['home']['id']=$row['id'];
 				$_SESSION['home']['name']=$row['name'];
-				echo '<div style="margin:100px auto 0 ; padding:5px; border:1px solid #ccc; text-align:center; width:200px; height:120px;">登录成功</div><meta http-equiv="refresh" content="3;url='.URL.'index.php"/>';
+				echo '<div style="margin:100px auto 0 ; padding:5px; border:1px solid #ccc; text-align:center; width:200px; height:120px;">登录成功</div><meta http-equiv="refresh" content="3;url=',$target,'?',$pathfilm,'"/>';
 				
 			}else{
 				echo '登录失败<meta http-equiv="refresh" content="3;url='.$_SERVER['HTTP_REFERER'].'"/>';

@@ -83,6 +83,7 @@ h1 .action-span1 {
     padding: 2px;
 }
 .admin_userlist{width:100%;text-align:center;}
+.admin_userlist td{padding:3px;}
 .add td{
     text-align:left;
 }
